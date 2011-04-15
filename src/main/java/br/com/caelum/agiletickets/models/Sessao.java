@@ -27,6 +27,9 @@ public class Sessao {
 
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime inicio;
+	
+	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	private DateTime fim;
 
 	private Integer duracaoEmMinutos;
 
@@ -44,6 +47,15 @@ public class Sessao {
 
 	public DateTime getInicio() {
 		return inicio;
+	}
+
+	
+	public DateTime getFim() {
+		return fim;
+	}
+
+	public void setFim(DateTime fim) {
+		this.fim = fim;
 	}
 
 	public void setInicio(DateTime inicio) {
@@ -95,6 +107,6 @@ public class Sessao {
 	}
 
 	public boolean podeReservar(Integer numeroDeIngressos) {
-		return getIngressosDisponiveis() > numeroDeIngressos;
+		return getIngressosDisponiveis() >= numeroDeIngressos;
 	}
 }

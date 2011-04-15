@@ -2,6 +2,7 @@ package br.com.caelum.agiletickets.models;
 
 import static com.google.common.collect.Lists.newArrayList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -29,7 +31,7 @@ public class Espetaculo {
 	@Enumerated(EnumType.STRING)
 	private TipoDeEspetaculo tipo;
 
-	@OneToMany(mappedBy="espetaculo")
+	@OneToMany(mappedBy = "espetaculo")
 	private List<Sessao> sessoes = newArrayList();
 
 	@ManyToOne
@@ -80,7 +82,20 @@ public class Espetaculo {
 	}
 
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
-		return null;
+	
+		List<Sessao> lista = new ArrayList<Sessao>();
+		
+		int numeroDias = Days.daysBetween(inicio, fim).getDays() + 1;
+		
+		for(int i = 0; i < numeroDias; i++) {
+		
+			Sessao sessao  = new Sessao();
+			sessao.setInicio(inicio.plusDays(i).toDateTime(horario));
+			lista.add(sessao);	
+		}
+				
+				
+		return lista;
 	}
 
 }

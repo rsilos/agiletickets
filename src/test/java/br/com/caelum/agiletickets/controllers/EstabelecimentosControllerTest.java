@@ -62,4 +62,15 @@ public class EstabelecimentosControllerTest {
 
 		verify(diretorio).adiciona(estabelecimento);
 	}
+	
+	@Test
+	public void naoDeveAdicionarEstabelecimentoSemNomeEEndereco() throws Exception {
+		Estabelecimento estabelecimento = new Estabelecimento();
+		estabelecimento.setNome("Um nome");
+		estabelecimento.setEndereco("Um endereco");
+
+		controller.adiciona(estabelecimento);
+
+		verify(diretorio).adiciona(estabelecimento);
+	}	
 }
